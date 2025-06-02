@@ -1,7 +1,7 @@
 #include <iostream>
-#include <conio.h>
 #include <cstring>
 #include <vector>
+#include <limits> // Required for std::numeric_limits
 
 using namespace std;
 
@@ -95,7 +95,8 @@ void Application :: run(){
         clearInputBuffer();
         showHeader();
 		showMainMenuWith(currentArrowPosition);
-		pressedKey = getch();
+		pressedKey = cin.get();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		if(pressedKey == ENTER_KEY)
             doTaskAssociatedWith(currentArrowPosition);
@@ -105,7 +106,7 @@ void Application :: run(){
 }
 
 void Application :: clearConsole(){
-    system("cls");
+    cout << "\033[2J\033[1;1H";
 }
 
 void Application :: clearInputBuffer(){
@@ -256,7 +257,8 @@ record Phonebook :: getNewContactRecord(){
 
 void Phonebook :: showPressAnyKeyToContinueDialogue(){
     cout << "\n\n\t (Press Any Key To Continue)";
-    getch();
+    std::cin.get();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 void Phonebook :: showAllContacts(){
